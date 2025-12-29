@@ -1,0 +1,48 @@
+
+
+
+Example-1:
+-----------
+
+import math
+def test():
+    print("Hello 1")
+    yield
+    print("Hello 2")
+    yield
+    print("Hello 3")
+    yield
+    print("Hello 4")
+    yield
+
+a = test()
+a.__next__()
+print("Enter any number")
+n = int(input())
+ans = math.factorial(n)
+print("Factorial is : ", ans)
+a.__next__()
+
+
+
+Example-2:
+------------
+def operations(a,b):
+    c = a + b
+    print("Addition is :", c)
+    yield
+    d = a - b
+    print("Subtraction is :", d)
+    yield
+    e = a * b
+    print("Multiplication is :", e)
+    yield
+    f = a / b
+    print("Division is :", f)
+    yield
+
+a = operations(25, 5)
+a.__next__()
+
+
+

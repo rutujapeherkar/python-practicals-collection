@@ -1,0 +1,741 @@
+
+* To define a function, general syntax is:
+	def fname(para_list):
+	    statement-1
+	    statement-2
+	    statement-n
+
+* A function will not execute automatically. We need 
+to call it.
+
+* Every Python file (.py) can be dividied as:
+	module 
+	program
+
+* A module is Python file that contains only callable 
+entities (i.e. functions and classes)
+* A program is Python file that contains executable 
+entities (open statements) and callable entities.
+
+==================================================
+
+* We know that, to execute a function, we must call it.
+
+For example:
+-------------
+def sayhello():
+    print("Hello all")
+def greet():
+    print("Hi all")
+    print("Good Morning")
+
+print("main area starts")
+sayhello()  <--- call to sayhello()
+greet()  <--- call to greet()
+print("main area ends")
+
+
+* Remember that, to call/execute a function we must 
+specify () with it. 
+* If we use only name of function (without () ) then 
+it will be referred as a reference. It will not execute.
+
+================================================
+
+* We know that, a function can have parameters.
+* The parameters that we declare while defining a 
+function, are called as Formal Parameters/Arguments.
+* The parameters that we pass while calling a function, 
+are called as Actual Parameters/Arguments.
+
+* The Python functions, does not have any particular 
+data-type for formal parameters. 
+* They are also dynamic datatyped. This means, whatever 
+actual parameter we pass, will be the datatype of 
+formal parameters.
+
+For example:
+-------------
+def add(a,b):   <--- valid
+    pass
+
+def add(int a, int b):  <--- invalid
+    pass
+
+def add(int(a), int(b)):  <--- invalid
+    pass
+
+** Refer following another example.
+
+def test(a):   <--- contains one formal parameter
+    print("Value of a :", a)
+    print("Type of a :", type(a))
+
+test(10)  <--- passed int type 10
+test(22.55)  <--- passed float type 2.55
+test("Hello all")  <--- passed string
+test([10,20,30])  <--- passed list
+test({55,66,77})  <--- passed set
+
+The output will be:
+---------------------
+Value of a : 10
+Type of a : <class 'int'>
+Value of a : 22.55
+Type of a : <class 'float'>
+Value of a : Hello all
+Type of a : <class 'str'>
+Value of a : [10, 20, 30]
+Type of a : <class 'list'>
+Value of a : {66, 77, 55}
+Type of a : <class 'set'>
+
+* We can logically restrict the formal parmaeters for  
+particular datatype; by using isinstance() and if-else 
+block.
+
+For example:
+-------------
+def test(a):
+    if isinstance(a, int):   <--- makes it work only for 'int'
+        print("Value of a :", a)
+        print("Type of a :", type(a))
+    else:
+        print("Expects 'int', but received")
+
+test(10)
+test(22.55)
+test("Hello all")
+test([10,20,30])
+test({55,66,77})
+
+The output will be:
+--------------------
+Value of a : 10
+Type of a : <class 'int'>
+Expects 'int', but received
+Expects 'int', but received
+Expects 'int', but received
+Expects 'int', but received
+
+=============================================
+
+* In Python, functions are ultimately objects of 
+class funtion.
+* The function's name is ---> referene
+  The function's body is ---> object 
+
+* Therefore we can logically use the function's name 
+(reference), if required.
+
+For example:
+-------------
+def sayhello():
+    print("Hello all")
+    print("How are you??")
+
+a = sayhello  <--- assigns reference 'sayhello' to reference 'a'
+a()  <--- calling to 'a' will call to body of 'sayhello'
+
+The output will be:
+--------------------
+Hello all
+How are you??
+
+==================================================
+
+* It is possible to pass a function as actual parameter.
+* We already did this in map(), reduce() and filter().
+
+For example:
+--------------
+def sayhello():
+    print("Hello all")
+    print("How are you??")
+
+def test(a):
+    print("From test..")
+    a()
+
+print("\nmain area starts")
+test(sayhello)   <--- passed function as AP to another function
+print("\nmain area ends")
+
+The output will be:
+--------------------
+main area starts
+From test..
+Hello all
+How are you??
+main area ends
+
+==============================================
+==============================================
+
+* We know that, a fucntion can return value by using 
+keyword "return".
+* In Python, also it is allowed to return a value from 
+function.
+
+For example:
+-------------
+def add(a,b):
+    c = a + b
+    return c  <--- returning value of 'c'
+
+print("main area starts")
+a1 = add(10,20)  
+ # calling to add() and receiving returned value in 'a1'
+print("Addition is : ", a1)
+print("main area ends")
+
+The output will be:
+--------------------
+main area starts
+Addition is :  30
+main area ends
+
+* If a fuction does not return, and then also we receive 
+on left-side of calling statement; then there is no 
+error. 
+* But by-default function returns "None".
+
+For example:
+-------------
+def add(a,b):  <--- does not return
+    c = a + b
+
+print("main area starts")
+a1 = add(10,20)  <--- add() is not returning
+print("Addition is : ", a1)
+print("main area ends")
+
+The output will be:
+---------------------
+main area starts
+Addition is :  None
+main area ends
+=======================
+
+* We know that, in C/C++/Java a function can return 
+only one value. 
+* And the dataype of returned value will be return-type 
+of that function.
+* Here in Python, whether a function returns or not 
+there is no return-type. Keyword "def" is mandatory.
+
+========================
+
+* Here in Python, a function can return multiple values
+also. 
+
+For example:
+--------------
+def operations(a,b):
+    c = a + b
+    d = a - b
+    e = a * b
+    f = a / b
+    return c,d,e,f
+
+* Above function add() is returning multiple values.
+* While calling above style functions, we must have to 
+receive all returned values/objects on left-side of 
+calling statement.
+
+For example:
+-------------
+def operations(a,b):
+    c = a + b
+    d = a - b
+    e = a * b
+    f = a / b
+    return c,d,e,f   <--- returning multiple values
+
+print("main area starts")
+a1,a2,a3,a4 = operations(10,20)
+	# receiving returned multiple values
+print("Addition is :", a1)
+print("Subtraction is :", a2)
+print("Multiplication is :", a3)
+print("Division is :", a4)
+print("main area ends")
+
+* In above example it looks like:
+	- operations() is returning multiple values and 
+	-  we are receiving multiple values.
+
+* But actually techincally it is not correct.
+*** The operations() has returned one single tuple object.
+*** While receiving, we performed unpacking.
+
+=======================================
+
+* Following function is invalid.
+
+def operations(a,b):
+    c = a + b
+    return c
+    d = a - b
+    return d
+    e = a * b
+    return e
+    f = a / b
+    return f
+
+* The keyword "return" must be used exactly once.
+
+==================================================
+
+* In Python, it is possible to define nested functions.
+* This means, we can define function(s) inside body of 
+another function.
+
+For example:
+-------------
+def greet():
+    print("Greet Function starts")
+    def say_hello():  <--- becomes nested function
+        print("Hello all..")
+        print("How are you..?")
+    def say_hi():  <--- becomes nested function
+        print("Hi all..")
+        print("How are you..?")
+    def wish():  <--- becomes nested function
+        print("Good Morning")
+    print("Greet Function starts")
+    
+* In above example, we have defined 3 nested functions 
+inside body of greet().
+* Technically, we have delcare 3 nested functions as 
+local objects/variables of greet(). Therefore, their 
+scope is within the greet(). 
+* This means, we cannot call nested functions from 
+external area. We can call them within body of greet() 
+only.
+
+For example:
+-------------
+
+def greet():
+    print("Greet Function starts")
+    def say_hello():
+        print("Hello all..")
+        print("How are you..?")
+    def say_hi():
+        print("Hi all..")
+        print("How are you..?")
+    def wish():
+        print("Good Morning")
+    wish()  <--- nested function is called 
+    say_hi()  <--- nested function is called
+    print("Greet Function ends")
+
+greet()  <--- outer function is called from external area
+
+The output will be:
+--------------------
+Greet Function starts
+Good Morning
+Hi all..
+How are you..?
+Greet Function ends
+
+=================================================
+
+* The scope of nested functions are within the body 
+of outer function. Therefore they are not accessible 
+in external area.
+* It is also possible to return nested functions from 
+the body of outer function, by using keyword "return".
+
+For example:
+-------------
+def greet():
+    print("Greet Function starts")
+    def say_hello():
+        print("Hello all..")
+        print("How are you..?")
+    def say_hi():
+        print("Hi all..")
+        print("How are you..?")
+    def wish():
+        print("Good Morning")
+    print("Greet Function ends")
+    return say_hello, wish   <--- returned 2 nested functions
+
+* In actual, we have not returned function. We have 
+returned their references.
+* We can receive these returned references of nested 
+functions while calling to external function.
+
+For example:
+-------------
+
+def greet():
+    print("Greet Function starts")
+    def say_hello():
+        print("Hello all..")
+        print("How are you..?")
+    def say_hi():
+        print("Hi all..")
+        print("How are you..?")
+    def wish():
+        print("Good Morning")
+    print("Greet Function ends")
+    return say_hello, wish
+	# returning references of nested functions
+
+f1, f2 = greet()  
+   # receiving references of nested functions in f1 and f2
+f1()  <--- calling f1 (actually say_hello() )
+f2()  <--- calling f2 (actually wis() )
+
+The output will be:
+---------------------
+Greet Function starts
+Greet Function ends
+Hello all..
+How are you..?
+Good Morning
+
+===================================================
+===================================================
+
+* It is also possible to pass a function as AP.
+* We actually pass, reference of that function as AP.
+
+For example:
+-------------
+def test(a):  <--- FP 'a' receives passed function
+    print("Test() starts")
+    a()  <--- call to a() will call to say_hello()
+    print("Test() ends")
+
+def say_hello():
+    print("Hello all")
+    print("Good Morning")
+
+print("main area starts")
+test(say_hello)   <--- passed say_hello as AP
+print("main area ends")
+
+* Actually, we have not passed the entire function as 
+AP.
+* We have passed reference of the function as AP.
+* In map(), reduce() and filter() we have passed 
+functions as AP.
+
+===================================================
+===================================================
+
+* Function with Default arguments/parameters *
+-----------------------------------------------
+* Refer following function:
+
+def studInfo(sname, scollege, sage):
+    print("Name is :", sname)
+    print("College is :", scollege)
+    print("Age is :", sage)
+
+* Above function contains 3 FP. For all FP, we must pass 
+equal number of AP.
+
+* But Python provides facility to apply default values 
+for FP. 
+
+For example:
+--------------
+def studInfo(sname="NoName", scollege="GPA", sage=20):
+    print("Name is :", sname)
+    print("College is :", scollege)
+    print("Age is :", sage)
+
+* Above studInfo() has 3 FP. And all are with default 
+values. 
+* This means, if we do not pass specific number of AP, 
+then these default values will be considered.
+
+For example:
+-------------
+studInfo()   
+  # all 3 values will be default values
+studInfo("Amit")
+  # over-writes to sname; whereas scollege and sage will 
+  # remain default values.
+studInfo("Amit", "JNEC") 
+  # over-writes to sname and scollege; whereas, sage 
+  # will remain default value.
+studInfo("Amit", "JNEC", 21)
+  # over-writes all 3 values over default values.
+
+The output will be:
+--------------------
+Name is : NoName
+College is : GPA
+Age is : 20
+
+Name is : Amit
+College is : GPA
+Age is : 20
+
+Name is : Amit
+College is : JNEC
+Age is : 20
+
+Name is : Amit
+College is : JNEC
+Age is : 21
+
+*** In case of such default arguments/parametes, we 
+can also combine them with un-initialized arguments/
+parameters.
+* But in such case, the un-initialized arguments/parameters 
+must be left-most parameter (in the beginning).
+* The initialized arguments/parameters must be right-
+most parameter (at the end).
+
+For example:
+-------------
+def studInfo(sname="NoName", scollege="GPA", sage):  <--- not allowed
+    pass
+
+def studInfo(sname="NoName", sage, scollege="GPA"): <--- not allowed
+    pass
+
+def studInfo(sage, sname="NoName", scollege="GPA"):  <--- is valid
+    pass
+
+===============================================
+===============================================
+
+* Calling functions with keyword arguments *
+--------------------------------------------
+- This facility of calling functions indicates, to 
+pass AP by referring names of FP.
+
+For example:
+-------------
+print("Value of a is :", a, sep="-", end=" ")
+
+* We have already used above statement. In this 
+statement, the use of "end=" and "sep=" is actually 
+calling with keyword arguments.
+
+Example-1:
+------------
+def studInfo(sname, scity, sroll):
+    print("Name is :", sname)
+    print("City is :", scity)
+    print("Roll Number is :", sroll)
+
+studInfo("Amit", "Aurangabad", 15)
+studInfo(sroll=20, sname="Vishal", scity="Beed")
+studInfo(scity="Jalna", sroll=21, sname="Tushar")
+
+* We use this facility of passing AP by referring 
+keyword arguments, when a function has lot of FP and 
+we don't remember sequence/order of FP.
+
+The output will be:
+--------------------
+Name is : Amit
+City is : Aurangabad
+Roll Number is : 15
+
+Name is : Vishal
+City is : Beed
+Roll Number is : 20
+
+Name is : Tushar
+City is : Jalna
+Roll Number is : 21
+
+* There is a rule related to passing keyword arguments.
+* Here also, the AP list must begin with non-keyword 
+arguments followed with keyword arguments. 
+* In other words, the non-keyword arguments must be 
+left-most arguments (in the beginning) and keyword 
+arguments must be right-most arguments (at the end).
+
+For example:
+--------------
+studInfo("Tejas", sroll=25, scity="Nagar")  <--- valid
+studInfo(sname="Tejas", "Nagar", 26)  <--- invalid
+studInfo(scity="Nagar", sname="Tejas", 26)  <--- invalid
+
+==========================================
+==========================================
+
+* Function with Variable-length argument *
+------------------------------------------
+* It is a facility of function to receive variable 
+numbers of AP.
+* To declare variable length argument we need to declare 
+one formal parameter with *.
+
+For example:
+--------------
+def average(*a):   <--- this 'a' is AL argument
+    pass
+
+* Its advantage is, we can pass different numbers 
+of AP while calling it different times.
+* The datatype of VL argument is "tuple".
+
+For example:
+-------------
+def average(*a):
+    print("Type is :", type(a))
+    print("Value is :", a)
+
+average()  <--- called to average() having VL argument
+
+The output will be:
+--------------------
+Type is : <class 'tuple'>
+Value is : ()
+
+* We can pass AP to it, and perform required operation 
+in body of function.
+
+For example:
+-------------
+def average(*a):  <--- is VL argument
+    sum = 0
+    for val in a:
+        sum = sum + val
+    av = sum/len(a)
+    return av
+
+print("Calling first time")
+a1 = average(10, 21.54, 30, 45.64, 50) <-- passing 5 AP
+
+print("Calling second time")
+a2 = average(5,6)  <--- passing 2 AP
+
+print("Calling third time")
+a3 = average(55, 66, 88, 77, 44, 99, 66, 14, 52, 63) <--- passing 10 AP
+
+print("First value :", a1)
+print("Second value :", a2)
+print("Third value :", a3)
+
+The output will be:
+--------------------
+Calling first time
+Calling second time
+Calling third time
+First value : 31.436
+Second value : 5.5
+Third value : 62.4
+
+*** Strictly remember that, one function allows 
+exact one VL argument.
+
+For example:
+-------------
+def average(*a, *b):
+	pass
+
+* This will show "SyntaxError".
+*** It is allowed to combine VL argument with normal 
+argument/parameter. In such case, the VL arguemnt must 
+be right-most argument (must be last).
+
+Example-1:
+-----------
+def average(*a, b,c,d):  <--- is invalid
+    pass
+
+Example-2:
+-----------
+def average(b, c, d, *a):   <--- is valid
+    pass
+
+average(10,20,30,40,50,60,70)
+
+* will assign:
+	10 to b
+	20 to c
+	30 to d
+	(40,50,60,70) to VL argument 'a'
+
+======================================================
+======================================================
+
+* Function with variable length keyword arguments *
+----------------------------------------------------
+* The function having VL argument and KW argument, 
+will have variable numbers of parameters/arguments 
+but we have to create FP names also.
+* To declare VL length KW argument, we have to use **
+
+For example:
+-------------
+def displayInfo(**a):  <--- VLKW argument
+    pass
+
+* The datatype of VLKW argument is "dict".
+
+For example:
+-------------
+def displayInfo(**a):
+    print("Type is :", type(a))
+    print("Value is :", a)
+
+displayInfo()   <--- calling to displayInfo()
+
+The output will be:
+--------------------
+Type is : <class 'dict'>
+Value is : {}
+
+* While calling to such VLKW argument function, we have 
+facility to specify names of FP also (externally)
+
+For example:
+-------------
+def displayInfo(**a):
+    print("Total Received :", len(a))
+    for x in a:
+        print(x, "-", a[x])
+
+print("Showing Student Info")
+displayInfo(studName="Amit", studCity="Beed", studAge=22)
+
+print("\nShowing Employee Info")
+displayInfo(empName="Vishal", empPost="Manager", empDept="Sales", empSalary=25000, empShift=2)
+
+The output will be:
+--------------------
+Showing Student Info
+Total Received : 3
+studCity - Beed
+studName - Amit
+studAge - 22
+
+Showing Employee Info
+Total Received : 5
+empPost - Manager
+empShift - 2
+empDept - Sales
+empName - Vishal
+empSalary - 25000
+
+*** A function can have exactly one VLKW argument.
+*** It is possible to combine VL argument and VLKW 
+argument. But the VL argument must be first parameter.
+
+For example:
+-------------
+def demo(*a, **b):  <--- is valid
+	pass
+
+*** If we want to add normal parameters also, then:
+def demo(a, b, c, *d, **e):   <--- is valid
+	pass
+
+====================================================
+=====================================================
+

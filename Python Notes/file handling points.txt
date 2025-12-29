@@ -1,0 +1,461 @@
+
+**** File Handling ****
+-----------------------
+* is the process/mechanism to perform R/W operations 
+on text files.
+
+* Only text-based operations are allowed.
+* Multimedia operations are not possible through 
+file handling.
+
+* There are 2 types of files:
+	- Plain text files
+	- Rich text files
+
+* The plain text files does not allow any type of 
+formatting. Such as font style, font size, alignments, 
+bullets, numbering, ClipArt, etc... are not allowed. 
+For example, .txt files and programming language source 
+code files. 
+
+* The rich text files allows every type of formatting.
+For example, word file, excel sheets, PP slides, etc..
+
+* We can implement file handling on plain text files 
+only. 
+
+=====================================================
+=====================================================
+* There are 3 steps to performs:
+	step 1: open file in required mode
+	step 2: perform R/W operation
+	step 3: close file
+
+=====================================================
+=====================================================
+
+* In Python, there are total 12 modes. Among them 
+3 are primary modes.
+	r  (for read mode)
+	w  (for write mode)
+	a  (for append mode)
+
+1) read mode ("r")
+- is to read contents of file.
+- when a file is opened in read mode, the READ cursor 
+  refers to first character of file. 
+- if we open a file in "r" mode, that file must 
+  exist. If specified file does not exists, then open() 
+  will show "FileNotFoundError".
+
+
+2) write mode ("w")
+- is to write new contents into file.
+- when we open a file in "w" mode, the write-cursor 
+  refers to beginning of the file. 
+- If we open a file in "w" mode:
+	* If that file does not exist:
+		then it automatically creates new blank file.
+	* If that file already exist:
+		then opens that file and trucates it. 
+
+
+3) append mode ("a") (append = edit at the end)
+- is to write new contents into file.
+- when we open a file in "a" mode, then write cursor 
+  refers to last character. 
+- if we open a file in "a" mode:
+	* if that file does not exist:
+		then it automatically creates new blank file.
+	* if that file already exists:
+		then opens it but will not trucate it.
+
+===================================================
+===================================================
+example File: file1.txt
+-------------------------
+This is line-1.
+This is line-2.
+This is line-3.
+=================
+This is line-4.
+This is line-5.
+This is line-6.
+================
+This is line-7.
+This is line-8.
+This is line-9.
+================
+
+====================================================
+====================================================
+
+* Functions related file handling:
+
+1) open()
+2) close()
+3) read()
+4) readline()
+5) readilnes()
+6) write()
+7) writelines()
+8) writable()
+9) readable()
+10) closed  <--- (boolean data-member)
+
+1) open():
+* This function is to open specified file in specified 
+mode. 
+* This function is open functoin of module "builtins.py".
+* This function has total 8 parameters. Among them 7 
+are initialized with default values; whereas, 1 is 
+un-initialized (therefore mandatory) parameter.
+* But mostly while opening a file, we specify two 
+parameters:
+	- file name
+	- file mode
+*** This function returns one cotroller/handler object 
+of <class '_io.TextIOWrapper'>
+* By using this controller object, we can perform 
+R/W operations on opened file.
+
+For example:
+-------------
+fobj = open("helloall.txt", "w")
+print(type(fobj))
+
+The output will be:
+--------------------
+<class '_io.TextIOWrapper'>
+
+* By using this "fobj" object we can call to all 
+read and write related member functions. 
+
+====================================================
+
+2) read():
+* This function is to read contents of file.
+* To use this function, the file must be opned in "r" mode.
+* This function reads complete data and returns in 
+string type. The data includes symbols, newline 
+character '\n', digits and alphabets. 
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+fdata = fobj.read()
+ # reads and returns contents of file in 'fdata'
+
+print(type(fdata))  <--- prints type of 'fdata'
+print(fdata)  <--- prints 'fdata'
+
+fobj.close()  <--- to close the file
+
+The output will be:
+--------------------
+<class 'str'>
+This is line-1.
+This is line-2.
+This is line-3.
+=================
+This is line-4.
+This is line-5.
+This is line-6.
+================
+This is line-7.
+This is line-8.
+This is line-9.
+================
+
+* If any particular part of file is required, then 
+simply apply slicing:dicing on returned 'fdata'
+
+* This function also contains a parameter to specify 
+the numbers of characters to read/obtain from beginning 
+of file.
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+fdata = fobj.read(3)
+  # reads first 3 characters from file
+print(fdata)
+fobj.close()
+
+The output will be:
+--------------------
+Thi
+
+* If we specify extra length for parameter (that includes 
+final lenght of file) then this functoin will read 
+complete data (upto end of file).
+
+==============================================
+
+3) readline():
+* This function by-default reads line-by-line. 
+* This function by-default performs two tasks:
+    - reads current line where read-cursor is pointing 
+    - then drops read cursor to next line.
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+
+fdata1 = fobj.readline()
+  # reads first line and drops read-cursor on second-line
+print(fdata1)
+
+fdata2 = fobj.readline()
+  # reads second line and drops read-cursor on third-line
+print(fdata2)
+
+fobj.close()  <--- to close file
+
+The output will be:
+---------------------
+This is line-1.
+
+This is line-2.
+
+* This function does not provide any built-in facility 
+to directly jump on particular line-no. 
+* Logically we have to iterate upto required line-no.
+Then manually read current-line where read-cursor is 
+pointing.
+
+For example:  (I required contents of fourth line)
+--------------
+fobj = open("file1.txt", "r")
+
+i = 1
+while i<=3:
+    fobj.readline()
+    i = i + 1
+
+# above while-loop will perform 3 iterations to change 
+# read-cursor on next lines.
+fdata = fobj.readline()  <--- directly reads fourth line.
+print(fdata)
+fobj.close()   <--- to close file
+
+* This function also contains one optional parameter.
+* By-default this function reads upto next "\n".
+* We can specify the length upto where the read-cursor 
+should read. and drops read-cursor at +1 character.
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+
+fdata = fobj.readline(2)
+  # reads first 2 characters and drops read-cursor on 
+  # third character of file.
+print(fdata)
+
+fdata2 = fobj.readline(7)
+  # reads total 7 characters from third character onwards 
+  # and drops read-cursor at 10th character of file.
+print(fdata2)
+
+fobj.close()
+
+The output will be:
+--------------------
+Th
+is is l
+
+* This means, by using readline() we can read contents 
+of file in requird parts. 
+
+* If we iterate on 'fobj' by using for-each loop, then 
+internally it uses readline() method only.
+
+For example:
+-------------
+import time
+fobj = open("file1.txt", "r")
+
+for a in fobj:
+    print(a, end="")
+    time.sleep(1)
+
+fobj.close()
+
+=================================================
+
+4) readlines():
+* This function reads complete data of file and 
+returns as list; where each line of file will be one 
+element of list.
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+
+fdata = fobj.readlines()
+print(type(fdata))
+print(fdata)
+
+fobj.close()
+
+The output will be:
+--------------------
+<class 'list'>
+['This is line-1.\n', 'This is line-2.\n', 
+'This is line-3.\n', '=================\n', 
+'This is line-4.\n', 'This is line-5.\n', 
+'This is line-6.\n', '================\n', 
+'This is line-7.\n', 'This is line-8.\n', 
+'This is line-9.\n', '================']
+
+* This function also contains one optional argument. 
+* That argument is the character number (index).
+
+For example:
+-------------
+fobj = open("file1.txt", "r")
+
+fdata = fobj.readlines(20)
+  # this will read upto the line at where character 
+  # no. 20 is present. 
+print(fdata)
+
+fobj.close()
+
+The output will be:
+---------------------
+['This is line-1.\n', 'This is line-2.\n']
+
+===================================================
+
+5) write():
+* This function is to write new data into file.
+* That file must be in "w" mode to write data.
+* This function strictly requires string type data 
+only.
+
+For example:
+--------------
+fobj = open("file1.txt", "w")
+
+fobj.write("Hello all.\n")
+fobj.write("How are you?\n")
+
+fobj.close()
+
+* The write() will also continue writing into same line. 
+* Therefore we have to specify "\n" to end the line 
+in file.
+* The parameter of write() must be a string. Therefore 
+if we want to write value of any variable, then we 
+must concatinate it with specific message.
+* And also parse it into "str" type.
+
+For example:
+-------------
+fobj = open("file1.txt", "a")  <---- opened in "a" mode
+
+nm = input("Enter Student Name : ")
+roll = int(input("Enter Roll Number : "))
+
+fobj.write("\n=========================\n")
+fobj.write("Name is : " + nm + "\n")
+fobj.write("Roll Number is : " + str(roll))
+
+fobj.close()
+print("Data Written...")
+
+=================================================
+
+6) writelines():
+* The parameter of this function must be a sequence 
+containing only "str" elements. 
+
+For example:
+-------------
+fobj = open("file1.txt", "w")
+
+ls = ["Amit\n", "Vishal\n", "Vivek\n", "Pawan\n", "Rahul\n"]
+fobj.writelines(ls)
+
+fobj.close()
+print("Data Written...")
+
+* Above program will write all 5 names into file, and 
+all names are appended with "\n". 
+
+================================================
+
+7) readable():
+* This function checks and returns whether the file 
+is readable or not. 
+* i.e. whether that file is opened in "r" mode or not.
+* Returns boolean.
+
+8) writable():
+* This function checks and returns whether the file 
+is writable or not.
+* i.e. whether it is opened in "w" mode or not.
+* returns boolean.
+
+For example:
+--------------
+fobj1 = open("file1.txt", "w")
+fobj2 = open("file2.txt", "r")
+
+print("file1 is in 'w' mode : ", fobj1.writable() )
+print("file1 is in 'r' mode : ", fobj1.readable() )
+print("file2 is in 'w' mode : ", fobj2.writable() )
+print("file2 is in 'r' mode : ", fobj2.readable())
+
+fobj1.close()
+fobj2.close()
+
+The output will be:
+--------------------
+file1 is in 'w' mode :  True
+file1 is in 'r' mode :  False
+file2 is in 'w' mode :  False
+file2 is in 'r' mode :  True
+
+====================================================
+
+9) close():
+* This function is to close the file. 
+* Always prefer to close the file as the operation of 
+releasing resources.
+
+For example:
+-------------
+fobj1 = open("file1.txt", "w")
+fobj2 = open("file2.txt", "r")
+
+# perform any operation here 
+
+fobj1.close()
+fobj2.close()
+
+===================================================
+
+10) closed:
+* This is a boolean data member of class 'TextIOWrapper'.
+* This data-member is like a flag that checks whether 
+file is closed or not.
+* This data-member holds True if file is closed; otherwise 
+holds False.
+
+For example:
+-------------
+fobj = open("file1.txt", "w")
+print("Is file closed? : ", fobj.closed)
+
+fobj.close()
+print("Is file closed? : ", fobj.closed)
+
+The output will be:
+--------------------
+Is file closed? :  False
+Is file closed? :  True
+
+===================================================

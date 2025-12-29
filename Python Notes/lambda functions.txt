@@ -1,0 +1,188 @@
+
+lambda expression:
+-------------------
+* This lambda expressions is like "inline functions" of 
+C++.
+* The lambda expressions are ultimately functions that 
+directly returns the result of expression.
+* General syntax is:
+     expression_name = lambda para_list : expression
+* If we print type of lambda expression, then it will 
+be "function".
+
+For example:
+-------------
+add = lambda a,b:a+b
+get_square = lambda n:n*n
+print("Type of add is :", type(add))
+print("Type of get_square is :", type(get_square))
+
+The output will be:
+--------------------
+Type of add is : <class 'function'>
+Type of get_square is : <class 'function'>
+
+* To use lambda expression, simply use it like a 
+function call.
+* Call it with parameters.
+
+For example:
+--------------
+add = lambda a,b:a+b
+get_square = lambda n:n*n
+
+a1 = add(10,20)
+a2 = add(5.2, 6.5)
+a3 = add(10, 2.5)
+print(a1)
+print(a2)
+print(a3)
+
+s1 = get_square(8)
+s2 = get_square(2.65)
+print(s1)
+print(s2)
+
+The output will be:
+--------------------
+30
+11.7
+12.5
+
+64
+7.0225
+
+==================================================
+
+map():
+* This function maps/directs/links the elements of 
+specified sequence (second parameter) to specified 
+function/lambda (first parameter)
+* The result of map() is a sequence. 
+
+For example:
+-------------
+get_square = lambda n:n*n
+ls = list(range(1,11))
+ls2 = list(map(get_square, ls))  
+	# maps elements of 'ls' with "get_square"
+print(ls)
+print(ls2)
+
+The output will be:
+--------------------
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+* Refer following another example.
+Example-2:
+-----------
+get_ascii = lambda ch : ord(ch)
+ls = list(map(get_ascii, "Vishal"))
+print(ls)
+
+The output will be:
+---------------------
+[86, 105, 115, 104, 97, 108]
+
+* In map(), strictly remember that, we have to pass 
+individual sequences for each parameter of that 
+function/lambda expression.
+
+For example:
+-------------
+add = lambda a,b: a+b
+ls1 = range(1,11)
+ls2 = range(10,101,10)
+a1 = list(map(add, ls1, ls2))
+print(a1)
+
+The output will be:
+---------------------
+[11, 22, 33, 44, 55, 66, 77, 88, 99, 110]
+
+* In above add(), there are two parameters.
+* Therefore we passed two sequences.
+
+==================================================
+
+filter():
+* This function filters the values/elements of 
+specified sequence for which result/condtion was TRUE.
+* This function also requires two parameters:
+	- first is function name or lambda expression
+	- second is sequence.
+* This function also returns a sequence. 
+
+For example:
+-------------
+get_evens = lambda n : n%2==0
+ls = range(1,11)
+a1 = list(filter(get_evens, ls))
+print(a1)
+
+The output will be:
+--------------------
+[2, 4, 6, 8, 10]
+
+* Above lambda expression can also be written as:
+get_evens = lambda n : True if n%2==0 else False
+
+* In above examle, for 2,4,6,8, and 10; the result 
+of expression was TRUE. Therefore these passed values/
+elements are collected.
+
+===============================================
+
+reduce():
+* This function is present in module "functools".
+* This function maps elements of specified sequence 
+with specified function.
+* The result of this function will be single value.
+
+For example:
+-------------
+from functools import reduce
+add = lambda a,b : a+b
+ls = range(1,11)
+a1 = reduce(add, ls)
+print(a1)
+
+The output will be:
+--------------------
+55
+
+* Internally reduce() function iterpretes as :
+	a = a + b
+
+Example-2:
+-----------
+from functools import reduce
+get_large = lambda a,b : a if a>b else b
+ls = [21, 66, 84, 85, 30, 5, 61, 72]
+a1 = reduce(get_large, ls)
+print(a1)
+
+The output will be:
+---------------------
+85
+
+=================================================
+
+1) lambda expression should be preferred for abvoe 
+	3 functions. Because it will save execution time 
+	that spends in control transfer.
+2) result of map() and filter() is a sequence.
+3) result of reduce() is a single value.
+4) in all above examples, we can also define regular 
+	function with parameter instead of lambda expression.
+5) The reduce() and filter() allows only single sequence 
+	as parameter.
+6) In map() the numbers of seuqnces depends on numbers 
+	of parameters of functionlambda expression.
+
+===================================================
+
+
+
+

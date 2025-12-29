@@ -1,0 +1,26 @@
+
+# Dice Game.. Sum... 2 players..
+
+import time
+from random import randint
+
+p1_sum = 0
+p2_sum = 0
+
+round = 1
+while round<=5:
+    print("----- Round", round, "------")
+    input("Player 1, press ENTER to roll the DICE")
+    p1_rolled = randint(1,6)
+    print("Player 1 rolled -", p1_rolled)
+    p1_sum = p1_sum + p1_rolled
+    input("Player 2, press ENTER to roll the DICE")
+    p2_rolled = randint(1,6)
+    print("Player 2 rolled -", p2_rolled)
+    p2_sum = p2_sum + p2_rolled
+    round = round + 1
+
+time.sleep(3)
+print("\n\nTotal Score of Player 1 --->", p1_sum)
+print("Total Score of Player 2 --->", p2_sum)
+

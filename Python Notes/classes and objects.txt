@@ -1,0 +1,373 @@
+
+* We know that, almost every current programming 
+language is OOPL.
+
+* Python is also object oriented language. 
+* Therefore Python also support features of OOPL.
+* But if we compare OOPL features of Python with 
+other object oriented language, then Python has 
+only one purpose for it; i.e. only re-usability.
+* Don't expect that Python has any superior keywords 
+and facilities for any kind of Polymorphism, data 
+hiding.
+
+================================
+
+* Python don't have any OOP supporting keywords; like 
+static, abstract, virtual, access-specifier, super, 
+etc..
+
+=======================================
+
+* A class is set of data-members and member-functions.
+* To create a class, general syntax is:
+
+	class CLASS_NAME:
+		data-members
+		    and
+		member-functions
+
+* To define members of class, we have to:
+	- must initialize data-members.
+	- must manually declare a self-refernece
+	- must manually apply self-reference with data-members
+
+For example:
+-------------
+class Student:
+    sname = None
+    sroll = None
+    def accept_values(self):
+        self.sname = input("Enter Name : ")
+        self.sroll = input("Enter Roll Number : ")
+    def show_values(self):
+        print("Name is : ", self.sname)
+        print("Roll Number is : ", self.sroll)
+
+*** In Python, the "self" is not keyword. It is just 
+a proposed word from IDEs.
+* We can use any other manual word instead of "self".
+
+==================================
+
+* We know that a class does not occupy any runtime 
+memory. Therefore we have to declare object of class.
+
+* To delcare object in Python, general syntax is:
+	obj_name = class_name();
+
+For example:
+C++	A a1;
+Java	A a1 = new A();
+Python	a1 = A();
+
+C++	Student s1;
+Java	Student s1 = new Student();
+Python	s1 = Student();
+
+=============================================
+
+* After declaring object, call to required member 
+function by using object_name and dot opeator (.)
+
+For example:
+-------------
+class Student:
+    sname = None
+    sroll = None
+    def accept_values(self):
+        self.sname = input("Enter Name : ")
+        self.sroll = input("Enter Roll Number : ")
+    def show_values(self):
+        print("Name is : ", self.sname)
+        print("Roll Number is : ", self.sroll)
+
+s1 = Student()
+s1.accept_values()
+s1.show_values()
+
+s2 = Student()
+s2.accept_values()
+s2.show_values()
+
+The output will be
+--------------------
+for first object
+Enter Name : ABC
+Enter Roll Number : 15
+for second object
+Enter Name : XYZ
+Enter Roll Number : 16
+Showing first object
+Name is :  ABC
+Roll Number is :  15
+Showing second object
+Name is :  XYZ
+Roll Number is :  16
+
+=================================================
+
+* Remember that, every member function requires 
+a self-referencing parameter. Which receives ID 
+of invoking object.
+* The name of that parameter can be anything. 
+* That "self" is only a suggested/proposed name by 
+IDEs.
+
+================================================
+
+* Whenever a member-function is called, the ID of 
+invoking object gets passed (automatically) as 
+first parameter. 
+* This passed ID is received in that self-referencing 
+parameter.
+
+=================================================
+=================================================
+
+*** constructor and destructor ***
+-----------------------------------
+* We know that, the constructor executes automatically 
+when object is declared.
+* In C++ and Java the constructor's name must be 
+same as class-name. 
+* But here in Python, constructor's name must be:
+	__init__() 
+
+For example:
+--------------
+class Student:
+    def __init__(self):   <--- is constructor
+        print("Hello all")
+
+s1 = Student()   <--- constructor executes automatically 
+s1 = Student()   <--- constructor executes automatically 
+
+============================
+
+* Like other languages, here also the constructor 
+must not return.
+
+============================
+
+* We use constructor to initialize/configure object.
+* We can also define parameterized constructor by 
+passing values to __init__().
+* And we pass AP to it, while declaring object.
+
+For example:
+-------------
+class Student:
+    sname = None
+    sroll = None
+    def __init__(self, n, r):  <--- is parameterized constructor
+        self.sname = n
+        self.sroll = r
+    def show_values(self):
+        print("Name is : ", self.sname)
+        print("Roll Number is : ", self.sroll)
+
+s1 = Student("Amit", 15)
+   # declaring object and passing 2 parameters 
+   # to parameterized constructor.
+s2 = Student("Vishal", 16)
+   # declaring object and passing 2 parameters to 
+   # parameterized constructor.
+
+print("Showing values of first student")
+s1.show_values()
+print("Showing values of second student")
+s2.show_values()
+
+The output will be:
+--------------------
+Showing values of first student
+Name is :  Amit
+Roll Number is :  15
+Showing values of second student
+Name is :  Vishal
+Roll Number is :  16
+
+===================================================
+===================================================
+
+* As a part of dynamicity, Python allows to add new 
+data-members during runtime; internally or externally. 
+
+For example:
+-------------
+class Student:
+    def accept(self):
+        self.sname = input("Enter name : ")
+        self.sage = input("Enter age : ")
+    def show(self):
+        print("Age is : ", self.sage)
+        print("Name is : ", self.sname)
+
+s1 = Student()
+s1.accept()
+s1.show()
+
+* In above example, no data-members are declared as 
+part of class.
+* But execution of accept() will internally add 2 
+instances into invoking object. 
+
+Example-2:
+-----------
+class Student:
+    def accept(self):
+        self.sname = input("Enter name : ")
+        self.sage = input("Enter age : ")
+    def show(self):
+        print("Age is : ", self.sage)
+        print("Name is : ", self.sname)
+    def accept_average(self):
+        self.average = input("Enter Average Makrs : ")
+    def show_average(self):
+        print("Average Marks : ", self.average)
+
+s1 = Student()
+s2 = Student()
+
+s1.accept()
+s2.accept()
+s2.accept_average() 
+  # will add "average" instance in 's2' internally 
+
+s1.total = input("Enter total marks for s1") 
+   # will add instance "total" in 's1' externally
+print("Total of s1 : ", s1.total)
+print("Total of s2 : ", s2.total)
+   # no attribute/instance "total" in object 's1'
+
+print("Average of s2 : ", s2.average)
+print("Average of s1 : ", s1.average)
+  # no attribute/instance "average" in object 's2'
+
+
+* We know that, to use data-members in member-functions, 
+we have to use it with "self".
+* Similarly, to call other member functions of same class,
+we have to "self".
+
+For example:
+-------------
+class A:
+    x = None
+    def method1(self):
+        print("This is method1 of class A")
+        self.x = 55   <--- DM is access via "self"
+        self.method2()  <--- MF must be called via "self"
+    def method2(self):
+        print("This is method2 of class A")
+
+====================================================
+====================================================
+*** Inheritance ***
+-------------------
+* We know that, inheritance means deriving properties 
+of one class into another class.
+* The class whose properties are being derived, is 
+called as "base class".
+* The class in which properties are being derived is 
+called as "derived class"
+* In Python also we can inherit properties of one class 
+into another class. We do it within ().
+
+For example:
+-------------
+class A:
+    pass
+
+class B(A):
+    pass
+
+* Here, class A becomes Base class.
+* class B becomes derived class.
+
+========================================
+
+* We know that, there are some rules/advantages of 
+inheritance.
+
+1. By using object of DC we can access members of BC.
+2. By using object of BC we can access members of BC only. 
+
+For example:
+-------------
+class A:
+    def method1(self):
+        print("method1 of class A")
+
+class B(A):
+    def method2(self):
+        print("method2 of class B")
+
+b1 = B()  <--- object of DC 'B'
+b1.method1()  <--- valid
+b1.method2()  <--- valid
+
+a1 = A()  <--- object of BC 'A'
+a1.method1()  <--- valid
+a1.method2()  <--- invalid
+
+3. The members of DC can directly access members of 
+BC by using "self".
+4. The members of BC cannot access members of DC.
+
+For example:
+-------------
+class A:
+    def method1(self):
+        print("method1 of class A")
+        self.method2()  <--- invalid
+
+class B(A):
+    def method2(self):
+        print("method2 of class B")
+        self.method1()
+		# method1() of BC is called by "self".
+
+===============================
+5. In other OOPL, when we declare object of DC, then 
+first of all constructor of BC executes and then 
+consructor of DC executes.
+
+* But here in Python, this will not happen. Technically 
+it becomes like overridig of __init__() in DC. 
+* The __ini__() of DC hides __ini__() of BC.
+* Therefore we have to manully call to constructor of BC 
+from constructor of DC.
+
+For example:
+-------------
+class A:
+    def __init__(self):
+        print("constructor of class A")
+
+class B(A):
+    def __init__(self):
+        A.__init__(self)  <--- constr of BC is manually called
+        print("constructor of class B")
+
+b1 = B()  <--- declaring object of DC.
+
+===================================================
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
